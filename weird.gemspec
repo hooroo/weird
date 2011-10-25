@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
  s.homepage    = "http://github.com/dvydra/weird"
  s.files       = Dir.glob("lib/**/*.rb")
 
- s.add_development_dependency "rspec", "~>2.0"
+ s.add_development_dependency "rspec", "~>2.7"
 end
