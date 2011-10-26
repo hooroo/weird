@@ -4,27 +4,10 @@ module Weird
   FIRST_WEIGHTING  = [3, 2, 7, 6, 5, 4, 3, 2]
   SECOND_WEIGHTING = [7, 4, 3, 2, 5, 2, 7, 6]
   def self.version_string
-    "Weird version #{Weird::VERSION}"
+    "Weird version: #{Weird::VERSION}"
   end
 
-  # Check digit validation
-  # The following steps are to be performed:
-  # - Valid range >10,000,000 & <150,000,000 (This will ensure invalid numbers that will not
-  # be issued for another 10 years cannot be used in error)
-  # - To each of the base number’s eight digits a weight factor is assigned.  From left to right
-  # these are: 3, 2, 7, 6, 5, 4, 3, 2.
-  # - Where the base number is seven digits remember there is a leading zero.
-  # - Sum together the products of the weight factors and their associated digits.
-  # - Divide the sum by 11. If the remainder is 0 then the check digit is 0.
-  # - If the remainder is not 0 then subtract this number from 11, giving the check digit (0 - 9
-  # are valid).
-  # - If the resulting check digit is 10, use a secondary set of weight factors and apply steps 2
-  # and 3 to the same input base number.  From left to right the factors for an eight digit
-  # base number are: 7, 4, 3, 2, 5, 2, 7, 6.
-  # - Remember there is a leading zero for a seven digit base number.  If the new check digit
-  # is again 10 then the IRD number is invalid (0 - 9 is valid).
-  # - Compare the calculated check digit with the check digit on the IRD number.  If they
-  # match then the IRD number is valid.
+  # See http://www.ird.govt.nz/resources/c/5/c5a1198040c469449d4bbddaafba9fa8/payroll-spec-2011-v3.pdf for validation rules
   def self.valid_ird? input
     is_integer(input) && valid_range(input) && check_digit_matches(input)
   end
