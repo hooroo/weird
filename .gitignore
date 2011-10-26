@@ -1,3 +1,6 @@
 .rvmrc
-weird-*.gem
 .idea/
+*.gem
+.bundle
+Gemfile.lock
+pkg/*

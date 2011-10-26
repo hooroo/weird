@@ -26,21 +26,25 @@ module Weird
   # - Compare the calculated check digit with the check digit on the IRD number.  If they
   # match then the IRD number is valid.
   def self.valid_ird? input
-    return false unless is_integer input
-    return false unless valid_range input
-    ird_array = convert_to_integer_array input
-    provided_check_digit = ird_array.pop
-    calculated_check_digit = calculate_check_digit ird_array
-    calculated_check_digit == provided_check_digit
+    is_integer(input) && valid_range(input) && check_digit_matches(input)
   end
 
   private
+
   def self.is_integer input
     !!(input =~ /^[0-9]+$/)
   end
+
   def self.valid_range input
     10000000 < input.to_i && input.to_i < 150000000
   end
+
+  def self.check_digit_matches input_array
+    ird_array = convert_to_integer_array(input_array)
+    provided_check_digit = ird_array.pop
+    calculate_check_digit(ird_array) == provided_check_digit
+  end
+
   def self.convert_to_integer_array input
     ird_array = input.split(//)
     ird_array.map!{ |x| x.to_i }
@@ -49,17 +53,15 @@ module Weird
     end
     ird_array
   end
-  def self.calculate_check_digit input_array
-    remainder = calculate_remainder input_array, FIRST_WEIGHTING
-    return 0 if remainder == 0
+
+  def self.calculate_check_digit input_array, weighting_array=FIRST_WEIGHTING
+    remainder = calculate_remainder input_array, weighting_array
+    return remainder if remainder == 0
 
     check_digit = 11 - remainder
-
-    if check_digit == 10
-      remainder = calculate_remainder input_array, SECOND_WEIGHTING
-      check_digit = 11 - remainder
+    if check_digit == 10 && weighting_array == FIRST_WEIGHTING
+      check_digit = calculate_check_digit input_array, SECOND_WEIGHTING
     end
-
     check_digit
   end
 
