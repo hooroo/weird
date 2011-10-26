@@ -7,7 +7,15 @@ module Weird
     "Weird version: #{Weird::VERSION}"
   end
 
+  # Performs validation on NZ IRD numbers.
   # See http://www.ird.govt.nz/resources/c/5/c5a1198040c469449d4bbddaafba9fa8/payroll-spec-2011-v3.pdf for validation rules
+  #
+  # Example:
+  #   >> Weird.valid_ird?("49091850")
+  #   => true
+  #
+  # Arguments:
+  #   ird_number: (String)
   def self.valid_ird? input
     is_integer(input) && valid_range(input) && check_digit_matches(input)
   end
