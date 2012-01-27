@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
 
  s.summary     = "New Zealand IRD number checksum validation"
  s.description = "Checksum validation for New Zealand IRD numbers. See http://www.ird.govt.nz/how-to/irdnumbers/ for details of what an IRD is."
- s.homepage    = "http://github.com/dvydra/weird"
+ s.homepage    = "http://github.com/Jetstar/weird"
  s.files       = Dir.glob("lib/**/*.rb")
 
  s.add_development_dependency "rspec", "~>2.7"
