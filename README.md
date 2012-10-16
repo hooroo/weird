@@ -21,4 +21,7 @@ To run the tests:
 To add tests see the `Commands` section earlier in this
 README.
 
+Copyright
+-------
 
+Copyright (c) 2012 Hooroo. See LICENSE for details.
